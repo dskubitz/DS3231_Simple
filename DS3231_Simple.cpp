@@ -1,4 +1,4 @@
-#include <DS3231_Simple.h>
+#include "DS3231_Simple.h"
 
 void DS3231_Simple::begin()
 {  
@@ -16,7 +16,7 @@ void DS3231_Simple::begin()
 uint8_t DS3231_Simple::bcd2bin (uint8_t val) { return ((val >> 4) * 10) + (val & 0x0F); }
 uint8_t DS3231_Simple::bin2bcd (uint8_t val) { return (val / 10) << 4 | (val % 10);     }
 
-void DS3231_Simple::print_zero_padded(Stream &Printer, uint8_t x)
+void DS3231_Simple::print_zero_padded(Print& Printer, uint8_t x)
 {
   if(x < 10) Printer.print('0');
   Printer.print(x);
@@ -619,19 +619,20 @@ float DS3231_Simple::getTemperatureFloat()
 
 
 
-void DS3231_Simple::printTo(Stream &Printer)
+void DS3231_Simple::printTo(Print& Printer)
 {
     printTo(Printer, read());
 }
 
-void DS3231_Simple::printTo(Stream &Printer, const DateTime &timestamp)
+void DS3231_Simple::printTo(Print& Printer, const DateTime& Timestamp)
 {
-  printDateTo_YMD(Printer, timestamp);
+  printDateTo_YMD(Printer, Timestamp);
   Printer.print('T');
-  printTimeTo_HMS(Printer, timestamp);
+  printTimeTo_HMS(Printer, Timestamp);
 }
 
-void DS3231_Simple::printDateTo_DMY(Stream &Printer, const DateTime &Timestamp, const char separator)
+void DS3231_Simple::printDateTo_DMY(Print& Printer, const DateTime& Timestamp,
+				    const char separator)
 {  
   print_zero_padded(Printer, Timestamp.Day);
   Printer.print(separator);
@@ -648,7 +649,8 @@ void DS3231_Simple::printDateTo_DMY(Stream &Printer, const DateTime &Timestamp, 
   print_zero_padded(Printer, Timestamp.Year); 
 }
 
-void DS3231_Simple::printDateTo_MDY(Stream &Printer, const DateTime &Timestamp, const char separator)
+void DS3231_Simple::printDateTo_MDY(Print& Printer, const DateTime& Timestamp,
+				    const char separator)
 {  
   print_zero_padded(Printer, Timestamp.Month);  
   Printer.print(separator);
@@ -665,7 +667,8 @@ void DS3231_Simple::printDateTo_MDY(Stream &Printer, const DateTime &Timestamp, 
   print_zero_padded(Printer, Timestamp.Year); 
 }
 
-void DS3231_Simple::printDateTo_YMD(Stream &Printer, const DateTime &Timestamp, const char separator)
+void DS3231_Simple::printDateTo_YMD(Print& Printer, const DateTime& Timestamp,
+				    const char separator)
 {  
   if(Timestamp.Year > 100)
   {
@@ -682,7 +685,9 @@ void DS3231_Simple::printDateTo_YMD(Stream &Printer, const DateTime &Timestamp, 
   print_zero_padded(Printer, Timestamp.Day);  
 }
     
-void DS3231_Simple::printTimeTo_HMS(Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator , const char minutesToSecondsSeparator )
+void DS3231_Simple::printTimeTo_HMS(Print& Printer, const DateTime& Timestamp,
+				    const char hoursToMinutesSeparator,
+				    const char minutesToSecondsSeparator)
 {
   print_zero_padded(Printer, Timestamp.Hour);
   Printer.print(hoursToMinutesSeparator);
@@ -696,13 +701,17 @@ void DS3231_Simple::printTimeTo_HMS(Stream &Printer, const DateTime &Timestamp, 
 }
 
 
-void DS3231_Simple::printTimeTo_HM (Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator )
+void DS3231_Simple::printTimeTo_HM(Print& Printer, const DateTime& Timestamp,
+				   const char hoursToMinutesSeparator)
 {
   printTimeTo_HMS(Printer, Timestamp, hoursToMinutesSeparator, 0x03);
 }
 
 
-void DS3231_Simple::print12HourTimeTo_HMS(Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator , const char minutesToSecondsSeparator )
+void DS3231_Simple::print12HourTimeTo_HMS(Print& Printer,
+					  const DateTime& Timestamp,
+					  const char hoursToMinutesSeparator,
+					  const char minutesToSecondsSeparator)
 {
   if(Timestamp.Hour > 12) 
   {
@@ -732,7 +741,9 @@ void DS3231_Simple::print12HourTimeTo_HMS(Stream &Printer, const DateTime &Times
   }  
 }
 
-void DS3231_Simple::print12HourTimeTo_HM (Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator )
+void DS3231_Simple::print12HourTimeTo_HM(Print& Printer,
+					 const DateTime& Timestamp,
+					 const char hoursToMinutesSeparator)
 {
   print12HourTimeTo_HMS(Printer, Timestamp, hoursToMinutesSeparator, 0x03);
 }

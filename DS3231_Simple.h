@@ -82,7 +82,7 @@ class DS3231_Simple
     static uint8_t rtc_i2c_seek(const uint8_t Address);
     static uint8_t rtc_i2c_write_byte(const uint8_t Address, const uint8_t Byte);    
     static uint8_t rtc_i2c_read_byte(const uint8_t Address,  uint8_t &Byte);    
-    static void    print_zero_padded(Stream &Printer, uint8_t x);    
+    static void    print_zero_padded(Print& Printer, uint8_t x);
           
   public:
     /* 
@@ -243,7 +243,7 @@ class DS3231_Simple
      *  Example: Clock.printTo(Serial);
      */
      
-    void     printTo(Stream &Printer);
+    void     printTo(Print& Printer);
 
     /** Print the given DateTime structure in ISO8601 Format
      *  
@@ -254,77 +254,87 @@ class DS3231_Simple
      *  Example: Clock.printTo(Serial, MyDateAndTimeVaraible);
      */
      
-    void     printTo(Stream &Printer, const DateTime &Timestamp);
+    void     printTo(Print& Printer, const DateTime& Timestamp);
     
     /** Print the date portion of the given DateTime structure in DD/MM/YYYY format.
      *  
      */
-    void     printDateTo_DMY(Stream &Printer, const DateTime &Timestamp, const char separator = '/');
+    void     printDateTo_DMY(Print& Printer, const DateTime& Timestamp,
+			     const char separator = '/');
     
     /** Print the date portion of the current DateTime structure in DD/MM/YYYY format.
      *  
      */
-    void     printDateTo_DMY(Stream &Printer) { printDateTo_DMY(Printer, read()); }
+    void     printDateTo_DMY(Print& Printer) { printDateTo_DMY(Printer, read()); }
     
     /** Print the date portion of the given DateTime structure in MM/DD/YYYY format.
      *  
      */
-    void     printDateTo_MDY(Stream &Printer, const DateTime &Timestamp, const char separator = '/');
+    void     printDateTo_MDY(Print& Printer, const DateTime& Timestamp,
+			     const char separator = '/');
     
     /** Print the date portion of the current DateTime structure in MM/DD/YYYY format.
      *  
      */
-    void     printDateTo_MDY(Stream &Printer) { printDateTo_MDY(Printer, read()); }
+    void     printDateTo_MDY(Print& Printer) { printDateTo_MDY(Printer, read()); }
     
     /** Print the date portion of the given DateTime structure in YYYY-MM-DD format.
      *  
      */
-    void     printDateTo_YMD(Stream &Printer, const DateTime &Timestamp, const char separator = '-');       
+    void     printDateTo_YMD(Print& Printer, const DateTime& Timestamp,
+			     const char separator = '-');
     
     /** Print the date portion of the current DateTime structure in YYYY-MM-DD format.
      *  
      */
-    void     printDateTo_YMD(Stream &Printer) { printDateTo_YMD(Printer, read()); }
+    void     printDateTo_YMD(Print& Printer) { printDateTo_YMD(Printer, read()); }
     
     /** Print the time portion of the given DateTime structure in HH:MM:SS format (24 Hour Clock)
      *  
      */
-    void     printTimeTo_HMS(Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator = ':', const char minutesToSecondsSeparator = ':');
+    void     printTimeTo_HMS(Print& Printer, const DateTime& Timestamp,
+			     const char hoursToMinutesSeparator = ':',
+			     const char minutesToSecondsSeparator = ':');
     
     /** Print the time portion of the current DateTime structure in HH:MM:SS format (24 Hour Clock)
      *  
      */
-    void     printTimeTo_HMS(Stream &Printer) { printTimeTo_HMS(Printer, read()); }
+    void     printTimeTo_HMS(Print& Printer) { printTimeTo_HMS(Printer, read()); }
 
     /** Print the time portion of the given DateTime structure in HH:MM format (24 Hour Clock)
      *  
      */
-    void     printTimeTo_HM (Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator = ':');
+    void     printTimeTo_HM(Print& Printer, const DateTime& Timestamp,
+			    const char hoursToMinutesSeparator = ':');
     
     /** Print the time portion of the current DateTime structure in HH:MM format (24 Hour Clock)
      *  
      */
-    void     printTimeTo_HM(Stream &Printer) { printTimeTo_HM(Printer, read()); }
+    void     printTimeTo_HM(Print& Printer) { printTimeTo_HM(Printer, read()); }
 
     /** Print the time portion of the given DateTime structure in HH:MM:SS [AM/PM] format (12 Hour Clock)
      *  
      */
-    void     print12HourTimeTo_HMS(Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator = ':', const char minutesToSecondsSeparator = ':');
+    void     print12HourTimeTo_HMS(Print& Printer, const DateTime& Timestamp,
+				   const char hoursToMinutesSeparator = ':',
+				   const char minutesToSecondsSeparator = ':');
     
     /** Print the time portion of the current DateTime structure in HH:MM:SS [AM/PM] format (12 Hour Clock)
      *  
      */
-    void     print12HourTimeTo_HMS(Stream &Printer) { print12HourTimeTo_HMS(Printer, read()); }
+    void     print12HourTimeTo_HMS(
+		    Print& Printer) { print12HourTimeTo_HMS(Printer, read()); }
 
     /** Print the time portion of the given DateTime structure in HH:MM:SS [AM/PM] format (12 Hour Clock)
      *  
      */    
-    void     print12HourTimeTo_HM (Stream &Printer, const DateTime &Timestamp, const char hoursToMinutesSeparator = ':');
+    void     print12HourTimeTo_HM(Print& Printer, const DateTime& Timestamp,
+				  const char hoursToMinutesSeparator = ':');
     
     /** Print the time portion of the current DateTime structure in HH:MM:SS [AM/PM] format (12 Hour Clock)
      *  
      */    
-    void     print12HourTimeTo_HM(Stream &Printer) { print12HourTimeTo_HM(Printer, read()); }
+    void     print12HourTimeTo_HM(Print& Printer) { print12HourTimeTo_HM(Printer, read()); }
     
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
